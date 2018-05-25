@@ -211,7 +211,9 @@ if [ -n "$PYTHON2_URL" ]; then
     download_once $PYTHON2_URL
     unpack_downloaded $PYTHON2_URL "python2" 1
     if [ "$MACHINE_TYPE" = 'x86_64' ]; then
-        GCC_VERSION=$(gcc --version | grep ^gcc)
+        set +e
+        GCC_VERSION=$(gcc --version 2>/dev/null | grep ^gcc)
+        set -e
         if [ -n "$GCC_VERSION" ]; then
             if [ ! -f "$DIR_OBJ/python2-config-native.stamp" ]; then
                 echo "$GCC_VERSION"
@@ -242,7 +244,9 @@ if [ -n "$PYTHON3_URL" ]; then
     download_once $PYTHON3_URL
     unpack_downloaded $PYTHON3_URL "python3" 1
     if [ "$MACHINE_TYPE" = 'x86_64' ]; then
+        set +e
         GCC_VERSION=$(gcc --version | grep ^gcc)
+        set -e
         if [ -n "$GCC_VERSION" ]; then
             if [ ! -f "$DIR_OBJ/python3-config-native.stamp" ]; then
                 echo "$GCC_VERSION"
