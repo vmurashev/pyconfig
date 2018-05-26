@@ -230,10 +230,17 @@ if [ -n "$PYTHON2_URL" ]; then
         fi
         PYTHON2_MINOR_VERSION=$(cat "$DIR_SRC/python2/Include/patchlevel.h" | sed -n 's/#define[ \t]*PY_MINOR_VERSION[ \t]*\([0-9]*\).*/\1/p')
         PYTHON2_OUTPUT_DIR="$DIR_HERE/output/python-2.${PYTHON2_MINOR_VERSION}"
-        PYTHON2_OUTPUT_FILE="pyconfig_linux_${abi}.h"
-        if [ "$abi" = 'x86' ]; then
-            PYTHON2_OUTPUT_FILE='pyconfig_linux_i686.h'
-        fi
+        case $abi in
+            x86)
+                PYTHON2_OUTPUT_FILE='pyconfig_linux_i686.h'
+                ;;
+            arm64)
+                PYTHON2_OUTPUT_FILE='pyconfig_linux_aarch64.h'
+                ;;
+            *)
+                PYTHON2_OUTPUT_FILE="pyconfig_linux_${abi}.h"
+                ;;
+        esac
         mkdir -p $PYTHON2_OUTPUT_DIR
         $PYTHON_FOR_BUILD "$DIR_HERE/xpatch.py" --input "$DIR_OBJ/python2-$abi/pyconfig.h" --output "$PYTHON2_OUTPUT_DIR/$PYTHON2_OUTPUT_FILE" --abi $abi
     done
@@ -263,10 +270,17 @@ if [ -n "$PYTHON3_URL" ]; then
         fi
         PYTHON3_MINOR_VERSION=$(cat "$DIR_SRC/python3/Include/patchlevel.h" | sed -n 's/#define[ \t]*PY_MINOR_VERSION[ \t]*\([0-9]*\).*/\1/p')
         PYTHON3_OUTPUT_DIR="$DIR_HERE/output/python-3.${PYTHON3_MINOR_VERSION}"
-        PYTHON3_OUTPUT_FILE="pyconfig_linux_${abi}.h"
-        if [ "$abi" = 'x86' ]; then
-            PYTHON3_OUTPUT_FILE='pyconfig_linux_i686.h'
-        fi
+        case $abi in
+            x86)
+                PYTHON3_OUTPUT_FILE='pyconfig_linux_i686.h'
+                ;;
+            arm64)
+                PYTHON3_OUTPUT_FILE='pyconfig_linux_aarch64.h'
+                ;;
+            *)
+                PYTHON3_OUTPUT_FILE="pyconfig_linux_${abi}.h"
+                ;;
+        esac
         mkdir -p $PYTHON3_OUTPUT_DIR
         $PYTHON_FOR_BUILD "$DIR_HERE/xpatch.py" --input "$DIR_OBJ/python3-$abi/pyconfig.h" --output "$PYTHON3_OUTPUT_DIR/$PYTHON3_OUTPUT_FILE" --abi $abi
     done
