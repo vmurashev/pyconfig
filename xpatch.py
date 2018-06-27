@@ -9,7 +9,7 @@ import argparse
 import os.path
 import re
 
-ABI_ALL=['x86', 'x86_64', 'arm', 'arm64']
+ABI_ALL=['x86', 'x86_64', 'arm', 'arm64', 'macosx']
 
 DIR_HERE = os.path.normpath(os.path.abspath(os.path.dirname(__file__)))
 FILE_XPATCH_CONFIG = os.path.join(DIR_HERE, 'xpatch.ini')
@@ -188,7 +188,7 @@ if __name__ == '__main__':
     enabled_features = get_ini_conf_strings(ini_conf, TAG_INI_SECTION_ALL, TAG_INI_ENABLED_FEATURES)
     enabled_features.extend(get_ini_conf_strings_optional(ini_conf, abi, TAG_INI_ENABLED_FEATURES))
 
-    disabled_features = get_ini_conf_strings(ini_conf, TAG_INI_SECTION_ALL, TAG_INI_DISABLED_FEATURES)
+    disabled_features = get_ini_conf_strings_optional(ini_conf, TAG_INI_SECTION_ALL, TAG_INI_DISABLED_FEATURES)
     disabled_features.extend(get_ini_conf_strings_optional(ini_conf, abi, TAG_INI_DISABLED_FEATURES))
 
     discarded_features = get_ini_conf_strings(ini_conf, TAG_INI_SECTION_ALL, TAG_INI_DISCARDED_FEATURES)
