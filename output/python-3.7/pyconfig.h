@@ -6,9 +6,9 @@
 #  elif defined(__i386__)
 #    include "pyconfig_linux_i686.h"
 #  elif defined(__aarch64__)
-#    include <pyconfig_linux_aarch64.h>
+#    include "pyconfig_linux_aarch64.h"
 #  elif defined(__arm__)
-#    include <pyconfig_linux_arm.h>
+#    include "pyconfig_linux_arm.h"
 #  else
 #    error "Unknown linux arch."
 #  endif
